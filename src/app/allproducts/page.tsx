@@ -11,51 +11,6 @@ import p2 from '../public/p2.jpg';
 import p3 from '../public/p3.jpg';
 import p4 from '../public/p4.jpg';
 import p5 from '../public/p5.jpg';
-import p6 from '../public/p6.jpg';
-import p7 from '../public/p7.jpg';
-import p8 from '../public/p8.jpg';
-import p9 from '../public/p9.jpg';
-import p10 from '../public/p10.jpg';
-import p11 from '../public/p11.jpg';
-import p12 from '../public/p12.jpg';
-import p13 from '../public/p13.png';
-import p14 from '../public/p14.png';
-import p15 from '../public/p51.png';
-import p16 from '../public/p16.png';
-import p17 from '../public/p17.png';
-import p18 from '../public/p18.png';
-import p19 from '../public/p19.png';
-import p20 from '../public/p20.png';
-import p21 from '../public/p21.png';
-import p22 from '../public/p22.png';
-import p23 from '../public/p23.png';
-import p24 from '../public/p24.png';
-import p25 from '../public/p25.png';
-import p26 from '../public/p26.png';
-import p27 from '../public/p27.png';
-import p28 from '../public/p28.png';
-import p29 from '../public/p29.png';
-import p30 from '../public/p30.png';
-import p31 from '../public/p31.png';
-import p32 from '../public/p32.png';
-import p33 from '../public/p33.png';
-import p34 from '../public/p34.png';
-import p35 from '../public/p35.png';
-import p36 from '../public/p36.png';
-import p37 from '../public/p37.png';
-import p38 from '../public/p38.png';
-import p39 from '../public/p39.png';
-import p40 from '../public/p40.png';
-import p41 from '../public/p41.png';
-import p42 from '../public/p42.png';
-import p43 from '../public/p43.png';
-import p44 from '../public/p44.png';
-import p45 from '../public/p45.png';
-import p46 from '../public/p46.png';
-import p47 from '../public/p47.png';
-import p48 from '../public/p48.png';
-import p49 from '../public/p49.png';
-import p50 from '../public/p50.png';
 
 
 
@@ -65,51 +20,7 @@ import p50 from '../public/p50.png';
     { id: 3, image: p3.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
     { id: 4, image: p4.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
     { id: 5, image: p5.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 6, image: p6.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 7, image: p7.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 8, image: p8.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 9, image: p9.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 10, image: p10.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 11, image: p11.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 12, image: p12.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 13, image: p13.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 14, image: p14.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 15, image: p15.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 16, image: p16.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 17, image: p17.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 18, image: p18.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 19, image: p19.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 20, image: p20.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 21, image: p21.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 22, image: p22.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 23, image: p23.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 24, image: p24.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 25, image: p25.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 26, image: p26.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 27, image: p27.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 28, image: p28.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 29, image: p29.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 30, image: p30.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 31, image: p31.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 32, image: p32.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 33, image: p33.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 34, image: p34.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 35, image: p35.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 36, image: p36.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 37, image: p37.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 38, image: p38.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 39, image: p39.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 40, image: p40.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 41, image: p41.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 42, image: p42.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 43, image: p43.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 44, image: p44.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 45, image: p45.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 46, image: p46.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 47, image: p47.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 48, image: p48.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 49, image: p49.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
-    { id: 50, image: p50.src, title: "Just In", name: "Nike Air Force 1 Mid '07", color: "Color 1", price: "$13.995", detail: "Mens Shoes" },
+   
     // Continue the same pattern for more products
   ];
   

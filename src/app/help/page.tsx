@@ -13,7 +13,7 @@ export default function Help() {
 
             <h2 className="text-[32px] text-center mt-10">GET HELP</h2>
 
-            <div className="flex flex-col lg:flex-row lg:space-x-10 px-4 lg:px-0">
+            <div className="flex flex-col lg:flex-row lg:space-x-10 px-4 lg:px-0 md:mr-10">
                 <Left/>
                 <div className="border-l-2 border-pir mt-10 lg:mt-28 hidden lg:block"></div>
                 <div id="right" className="w-full lg:w-[313px] flex flex-col items-center">
