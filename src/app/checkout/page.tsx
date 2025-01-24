@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import logo from "../public/logo.png";
 import { Lock, MessageSquareText, Package2 } from "lucide-react";
 import { client } from '../../sanity/lib/client';
+import logo from "../public/logo.png";
 
 interface Product {
   id: string;
@@ -16,8 +15,6 @@ interface Product {
 }
 
 export default function Checkout() {
-  const searchParams = useSearchParams(); // Get search parameters
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -34,24 +31,35 @@ export default function Checkout() {
     orderDate: '',
   });
 
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
+
   // Ensure this logic runs only on the client-side
   useEffect(() => {
-    const cartItems = searchParams.get('cartItems');
-    const totalPrice = searchParams.get('totalPrice');
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      setSearchParams(params);
+    }
+  }, []);
 
-    if (cartItems && totalPrice) {
-      try {
-        const cartItemsParsed: Product[] = JSON.parse(cartItems); // Parse cartItems from query
-        const totalAmountParsed = parseFloat(totalPrice); // Parse totalPrice from query
-        
-        setFormData((prevData) => ({
-          ...prevData,
-          products: cartItemsParsed,
-          totalAmount: totalAmountParsed,
-          orderDate: new Date().toISOString(),
-        }));
-      } catch (error) {
-        console.error('Error parsing cart data from search parameters:', error);
+  useEffect(() => {
+    if (searchParams) {
+      const cartItems = searchParams.get('cartItems');
+      const totalPrice = searchParams.get('totalPrice');
+
+      if (cartItems && totalPrice) {
+        try {
+          const cartItemsParsed: Product[] = JSON.parse(cartItems); // Parse cartItems from query
+          const totalAmountParsed = parseFloat(totalPrice); // Parse totalPrice from query
+          
+          setFormData((prevData) => ({
+            ...prevData,
+            products: cartItemsParsed,
+            totalAmount: totalAmountParsed,
+            orderDate: new Date().toISOString(),
+          }));
+        } catch (error) {
+          console.error('Error parsing cart data from search parameters:', error);
+        }
       }
     }
   }, [searchParams]);
