@@ -2,15 +2,49 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatCurrencyString } from 'use-shopping-cart';
+import { Heart, Trash } from 'lucide-react';
 import Top from '../top';
 import Header from '../header';
 import Footer from '../footer';
-import pro from '../public/pro.jpg'
-import { Heart, Trash } from 'lucide-react';
-import Arrows from '../arrows';
-import image from '../public/shoe1.jpg'
+import { useCart } from '../context/cartcontext';
+import { useRouter } from 'next/navigation';
 
-export default function Cart(){
+interface Product {
+  id: string;
+  name: string;
+  image?: string;
+  description?: string;
+  price: number;
+  quantity: number;
+}
+
+export default function Cart() {
+  const { state, dispatch } = useCart();
+  const { cart, totalPrice } = state; // Access cart from state
+  const router = useRouter();
+
+  const handleRemoveItem = (itemId: string) => {
+    dispatch({ type: 'REMOVE_FROM_CART', payload: itemId });
+  };
+
+  const handleChangeQuantity = (itemId: string, quantity: number) => {
+    dispatch({ type: 'SET_ITEM_QUANTITY', payload: { id: itemId, quantity } });
+  };
+
+  const cartItems = Object.values(cart);
+
+  const handleCheckout = () => {
+    // Prepare the data to pass to the checkout page
+    const checkoutData = {
+      totalPrice: totalPrice.toString(),  // Convert totalPrice to string
+      cartItems: JSON.stringify(cartItems), // Convert cart items to a string
+    };
+
+    // Use router.push to pass the data as query parameters
+    const queryParams = new URLSearchParams(checkoutData).toString();
+    router.push(`/checkout?${queryParams}`);
+  };
 
   return (
     <main>
@@ -19,101 +53,121 @@ export default function Cart(){
       <div className="md:flex md:space-x-8 md:ml-20 md:mr-20 ml-10 mr-10 mt-10">
         {/* Left Section: Cart Items */}
         <div className="flex-1">
-          {/* Free Delivery Section */}
-          <div className="w-full h-[62px] bg-sec pl-10 text-side flex items-center">
-            <div>
-              <p className="text-[13px] font-semibold">Free Delivery</p>
-              <div className="flex space-x-6">
-                <p className="text-[13px]">Applies to orders of ₹ 14 000.00 or more.</p>
-                <Link
-                  className="text-side font-semibold text-[10px] border-b-2 border-black"
-                  href={'/'}
-                >
-                  View Details
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Bag Section */}
+          <FreeDeliveryBanner />
           <h2 className="text-side text-[22px] md:ml-15 ml-10 mt-5 font-semibold">Bag</h2>
-         
-            <div className="flex flex-col gap-6 mt-10">
-              
-                <div  className="flex space-x-8 border-b-2 border-sec pb-6">
-                  <div>
-                    <Image
-                      src={image} // Use the image property from the cart item
-                      alt={'image'}
-                      width={150}
-                      height={150}
-                      className="w-[150px] h-[150px]"
-                    />
-                  </div>
-                  <div className="text-[15px] text-side flex-1">
-                    <div className="flex justify-between">
-                      <h2 className="font-semibold mt-2"></h2>
-                      <h2 className="font-semibold mt-2">MRP: 345000</h2>
-                    </div>
-                    <p className="text-pir">Mens Shoes</p>
-                    <p className="text-pir">Black</p>
-                    <div className="flex space-x-14">
-                      <p className="text-pir">Size: L</p>
-                      <p className="text-pir">Quantity: 1</p>
-                    </div>
-                    <div className="flex space-x-4 mt-8">
-                      <Heart />
-                      <Trash />
-                    </div>
-                  </div>
-                  
-                </div>
-            
-              <h2 className='text-[21px] text-side font-semibold leading-tight'>Favourites</h2>
-              <p className='text-[15px] text-side font-medium'>There are no items saved to your favourites.</p>
-            </div>
-        
+          <CartItems
+            cartItems={cartItems}
+            handleRemoveItem={handleRemoveItem}
+            handleChangeQuantity={handleChangeQuantity}
+          />
+          <h2 className="text-[21px] text-side font-semibold leading-tight">Favourites</h2>
+          <p className="text-[15px] text-side font-medium">There are no items saved to your favourites.</p>
         </div>
 
         {/* Right Section: Summary */}
-        <div className="w-full md:w-[30%] md:sticky md:top-20 mt-10 md:mt-0">
-          <h2 className="text-[21px] text-side font-semibold">Summary</h2>
-          <div className="flex justify-between text-[15px] mt-4">
-            <h2 className="font-semibold">Subtotal :</h2>
-            <h2 className="font-semibold">price</h2>
-          </div>
-          <div className="flex justify-between text-[15px] border-b-2 border-sec pb-4 mt-4">
-            <h2 className="font-semibold">Estimated Delivery & Handling</h2>
-            <h2 className="font-semibold">Free</h2>
-          </div>
-          <div className="flex justify-between border-b-2 border-sec mt-4 pb-4">
-            <h2 className="font-semibold">Total</h2>
-            <h2 className="font-semibold">price</h2>
-          </div>
-          <button className="w-full h-[60px] bg-black text-white text-[15px] rounded-full mt-6">
-            Member Checkout
-          </button>
-        </div>
+        <Summary totalPrice={totalPrice} handleCheckout={handleCheckout} />
       </div>
-      <div className='flex justify-between mr-10 mt-20'>
-      <h2 className='text-[21px] text-side font-semibold leading-tight ml-10'>
-          You May Also Like
-      </h2>
-      <Arrows/>
-      </div>
-      <div>
-      <Image className='ml-10 mt-5' src={pro} width={431} height={431} alt='pro'/>
-      <div className='ml-10'>
-            <h1 className="text-[15px] text-side mt-2 font-semibold leading-tight">Nike Air Force 1</h1>
-            <p className="text-[15px] text-pir">Mens Shoes</p>
-            <h2 className="text-[15px] mt-2 mb-3 text-side font-bold">₹ 8 695.00</h2>
-            </div>
-            
-     
-            </div>
-<Footer />
+      <Footer />
     </main>
   );
-};
+}
 
+// Free Delivery Banner Component
+function FreeDeliveryBanner() {
+  return (
+    <div className="w-full h-[62px] bg-sec pl-10 text-side flex items-center">
+      <p className="text-[13px] font-semibold">Free Delivery</p>
+      <div className="flex space-x-6">
+        <p className="text-[13px]">Applies to orders of ₹ 14 000.00 or more.</p>
+        <Link href="/" className="text-side font-semibold text-[10px] border-b-2 border-black">View Details</Link>
+      </div>
+    </div>
+  );
+}
 
+// Cart Items Component
+function CartItems({
+  cartItems,
+  handleRemoveItem,
+  handleChangeQuantity,
+}: {
+  cartItems: Product[];
+  handleRemoveItem: (id: string) => void;
+  handleChangeQuantity: (id: string, quantity: number) => void;
+}) {
+  return (
+    <div className="flex flex-col gap-6 mt-10">
+      {cartItems.map((item) => {
+        const price = item.price ?? 0;
+        const quantity = item.quantity ?? 1;
+
+        return (
+          <div key={item.id} className="flex space-x-8 border-b-2 border-sec pb-6">
+            <Image
+              src={item.image || '/fallback-image.jpg'}
+              alt={item.name}
+              width={150}
+              height={150}
+              className="w-[150px] h-[150px]"
+            />
+            <div className="text-[15px] text-side flex-1">
+              <div className="flex justify-between">
+                <h2 className="font-semibold mt-2">{item.name}</h2>
+                <h2 className="font-semibold mt-2">
+                  {formatCurrencyString({ value: price, currency: 'USD', language: 'en-US' })}
+                </h2>
+              </div>
+              <p className="text-pir">{item.description}</p>
+              <div className="flex items-center space-x-2">
+                <button className='font-bold' onClick={() => handleChangeQuantity(item.id, quantity - 1)}>-</button>
+                <p className=" border px-2">{quantity}</p>
+                <button className='font-bold' onClick={() => handleChangeQuantity(item.id, quantity + 1)}>+</button>
+              </div>
+              <div className="flex space-x-4 mt-8">
+                <Heart className='hover:text-rose-700' />
+                <Trash onClick={() => handleRemoveItem(item.id)} />
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// Summary Component
+function Summary({
+  totalPrice,
+  handleCheckout,
+}: {
+  totalPrice: number;
+  handleCheckout: () => void;
+}) {
+  return (
+    <div className="w-full md:w-[30%] md:sticky md:top-20 mt-10 md:mt-0">
+      <h2 className="text-[21px] text-side font-semibold">Summary</h2>
+      <div className="flex justify-between text-[15px] mt-4">
+        <h2 className="font-semibold">Subtotal :</h2>
+        <h2 className="font-semibold">
+          {formatCurrencyString({ value: totalPrice, currency: 'USD', language: 'en-US' })}
+        </h2>
+      </div>
+      <div className="flex justify-between text-[15px] border-b-2 border-sec pb-4 mt-4">
+        <h2 className="font-semibold">Estimated Delivery & Handling</h2>
+        <h2 className="font-semibold">Free</h2>
+      </div>
+      <div className="flex justify-between border-b-2 border-sec mt-4 pb-4">
+        <h2 className="font-semibold">Total</h2>
+        <h2 className="font-semibold">
+          {formatCurrencyString({ value: totalPrice, currency: 'USD', language: 'en-US' })}
+        </h2>
+      </div>
+      <button
+        className="w-full h-[60px] bg-black text-white text-[15px] rounded-full mt-6"
+        onClick={handleCheckout} // Trigger checkout logic
+      >
+        Checkout
+      </button>
+    </div>
+  );
+}
