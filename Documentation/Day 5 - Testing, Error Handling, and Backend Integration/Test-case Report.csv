@@ -1,0 +1,23 @@
+,Test Case Id,"Test Case 
+Description","Test
+Steps","Expected
+Result","Actual
+result",Status,"Severity 
+Level","Assigned
+To",Remarks
+1,TC001,Check product listing,Open product page > Verify products,Products displayed correctly,"Products
+displayed
+correctly",Passed,High,-,"No issues
+found"
+2,TC002,Check product detail,Open product detail page > Verify details,"Products detail
+Displayed
+correctly","Products detail
+Displayed
+correctly",Passed,High,-,"No issues
+found"
+3,TC003,Test API error handling,Disconnect API > Refresh page,Show fallback UI with error message,Error message shown,Passed,High,-,"Handled 
+gracefully"
+4,TC004,Check cart functionality,Add product to cart > Verify cart contents,Cart updates with added product,Cart updates as expected,Passed,High,-,"Works as 
+expected"
+5,TC005,Ensure responsiveness on mobile,Resize browser window > Check layout,Layout adjusts properly to screen size,Responsive layout working as intended,Passed,Medium,-,"Works as 
+expected"
