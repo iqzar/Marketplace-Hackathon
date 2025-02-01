@@ -12,13 +12,13 @@ export interface Product {
   inventory: number;
   size: string;
   description: string; 
-  category: string;// Brief description of the product
+  category: string; // Product category
 }
 
 // Fetch products from Sanity
 export default async function fetchWomensProducts(): Promise<Product[]> {
   const data = await client.fetch(
-   `*[_type == "product" && category == $Womem Shoe] | order(title asc) {
+    `*[_type == "product" && category == $category] | order(title asc) {
       _id,
       title,
       productName,
@@ -30,7 +30,8 @@ export default async function fetchWomensProducts(): Promise<Product[]> {
       status,
       inventory,
       description
-    }`
+    }`,
+    { category: "Women's Shoes" } // Pass the category variable to the query
   );
 
   return data as Product[]; // Return the fetched products with type assertion

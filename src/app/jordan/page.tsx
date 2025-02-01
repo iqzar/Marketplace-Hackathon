@@ -5,7 +5,7 @@ import Top from '../top';
 import Header from '../header';
 import Footer from '../footer';
 import React, { useEffect, useState } from 'react';
-import fetchProducts from '@/lib/fetchProduct'; // Import the fetchProducts function
+import fetchProducts from '@/lib/fetchJordan'; // Import the fetchProducts function
 import Link from 'next/link';
 import Image from 'next/image';
 

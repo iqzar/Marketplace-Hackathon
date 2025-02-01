@@ -40,7 +40,7 @@ export default function Cart() {
       totalPrice: totalPrice.toString(),  // Convert totalPrice to string
       cartItems: JSON.stringify(cartItems), // Convert cart items to a string
     };
-
+  
     // Use router.push to pass the data as query parameters
     const queryParams = new URLSearchParams(checkoutData).toString();
     router.push(`/checkout?${queryParams}`);

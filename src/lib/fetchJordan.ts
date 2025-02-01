@@ -1,24 +1,24 @@
 import { client } from "@/sanity/lib/client"; // Import the Sanity client
 
 // Define the product type to ensure consistent typing
-export interface Product {
+export interface Jordan {
   _id: string;
   title: string;
   productName: string;
-  image: string; // URL of the product image
-  color: string; // Product color
-  price: number; // Product price
+  image: string;
+  color: string;
+  price: number;
+  size: string;
   status: string;
   inventory: number;
-  size: string;
   description: string;
-  category: string; // Product category (e.g., "Men's Shoe")
+  category: string;
 }
 
-// Fetch products from Sanity
-export default async function fetchMenProducts(): Promise<Product[]> {
+// Fetch products from multiple categories
+export default async function fetchProductsByCategories(): Promise<Jordan[]> {
   const data = await client.fetch(
-    `*[_type == "product" && category == "Men's Shoe"] | order(title asc) {
+    `*[_type == "product" && (category == "Men's Shoe" || category == "Women's Shoe")] | order(title asc) {
       _id,
       title,
       productName,
@@ -33,5 +33,5 @@ export default async function fetchMenProducts(): Promise<Product[]> {
     }`
   );
 
-  return data as Product[]; // Return the fetched products with type assertion
+  return data as Jordan[]; // Return the fetched products with type assertion
 }

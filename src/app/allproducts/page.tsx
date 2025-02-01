@@ -22,7 +22,10 @@ interface Product {
   inventory: number;
   description: string;
   category: string;
+
 }
+
+
 
 const AllProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -47,24 +50,25 @@ const AllProducts: React.FC = () => {
     ? products.filter((product) => product.category === selectedCategory)
     : products;
 
+   
   return (
     <main>
       <Top />
       <Header />
 
-      <div className="flex md:justify-between space-x-5 md:mt-16 md:ml-5">
+      <div className="flex md:justify-between space-x-5 md:mt-16 md:ml-2">
         <Sidebar onCategorySelect={handleCategorySelect} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-10 md:ml-10 md:mr-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-10 md:ml-5 md:mr-10">
           {filteredProducts.map((product, index) => (
             <div key={product._id} className={`${index >= 3 && index % 3 === 0 ? '' : 'mb-8'}`}>
-              <div className="group relative overflow-hidden mr-4 md:mr-10">
+              <div className="group relative overflow-hidden mr-4 md:mr-5">
              
                 <Link href={`/productdetail/${product._id}`}>
                   <Image
                     src={product.image}
-                    height={348}
-                    width={348}
+                    height={448}
+                    width={448}
                     alt={product.productName}
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />

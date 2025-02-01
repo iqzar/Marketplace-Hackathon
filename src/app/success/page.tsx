@@ -1,5 +1,5 @@
 import Link from 'next/link';
-
+import './success.css';
 
 const SuccessStripe = () => {
   return (
