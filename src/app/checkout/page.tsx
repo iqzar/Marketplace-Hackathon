@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { client } from '../../sanity/lib/client';
 import Image from 'next/image';
 import Header from '../header';
@@ -12,7 +11,7 @@ import { toast } from 'react-hot-toast';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { createPaymentIntent } from './action'; // Import the function from action.ts
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { CardElement} from '@stripe/react-stripe-js';
 
 interface Product {
   id: string;

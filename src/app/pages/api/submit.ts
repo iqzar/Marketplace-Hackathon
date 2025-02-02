@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { client } from "../../../sanity/lib/client";
+
 
 export async function POST(req: NextRequest) {
   try {
