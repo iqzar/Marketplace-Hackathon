@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import p5 from './public/image5.png'
 import p6 from './public/image6.png'
