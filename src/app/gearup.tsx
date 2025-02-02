@@ -4,6 +4,7 @@ import p6 from './public/image6.png'
 import p7 from './public/image7.png'
 import p8 from './public/image8.png'
 import Arrows from "./arrows";
+import { useState } from "react";
 
 export default function Gearup(){
 
@@ -21,13 +22,27 @@ export default function Gearup(){
         
     ];
 
+    const [startIndex, setStartIndex] = useState<number>(0); 
+    const nextProducts = () => {
+        if (startIndex + 4 < products.length) {
+          setStartIndex(startIndex + 1); // Move the window right
+        }
+      };
+    
+      // Function to show the previous set of products (move right)
+      const prevProducts = () => {
+        if (startIndex > 0) {
+          setStartIndex(startIndex - 1); // Move the window left
+        }
+      };
+    
     return(
         <main className="flex flex-col md:flex-row justify-around">
             <div>
              
             <div className='flex justify-end gap-5 mt-20 md:ml-10 md:mr-10 mr-20 mb-5'>
             <p className='text-[15px]'>Shop Mens</p>
-            <Arrows/>
+            <Arrows onPrev={prevProducts} onNext={nextProducts} />
             </div>
 
             <div className='flex md:flex-row flex-col md:space-y-0 md:space-x-4 space-y-8 md:ml-0 ml-20 md:mt-0 mt-4 md:mb-0'>
@@ -49,7 +64,7 @@ export default function Gearup(){
             <div>
             <div className='flex justify-end gap-5 mt-20 ml-10 mr-20 mb-5'>
             <p className='text-[15px]'>Shop Womens</p>
-            <Arrows/>
+            <Arrows onPrev={prevProducts} onNext={nextProducts} />
             </div>
             
             <div className='flex md:flex-row flex-col md:space-y-0 md:space-x-4 space-y-8 ml-20 md:mt-0 mt-4'>
