@@ -3,7 +3,6 @@
 import Arrows from './arrows';
 import React, { useEffect, useState } from 'react';
 import fetchProducts from '@/lib/fetchProduct'; 
-import Link from 'next/link';
 import Image from 'next/image';
 
 // Define the structure of a product

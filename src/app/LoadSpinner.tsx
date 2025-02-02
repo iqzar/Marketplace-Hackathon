@@ -1,5 +1,5 @@
 // components/LoadingSpinner.tsx
-import { ClipLoader } from 'react-spinners'; // Import a loading spinner
+// Import a loading spinner
 
 const LoadingSpinner = () => {
     return (
