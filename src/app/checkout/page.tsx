@@ -9,9 +9,8 @@ import Footer from '../footer';
 import { MoveRight } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import { Elements, CardElement } from '@stripe/react-stripe-js';
 import { createPaymentIntent } from './action'; // Import the function from action.ts
-import { CardElement} from '@stripe/react-stripe-js';
 
 interface Product {
   id: string;
@@ -93,9 +92,14 @@ export default function Checkout() {
       toast.success('Order saved successfully! Redirecting to payment...');
 
       // Call createPaymentIntent function to create Stripe PaymentIntent
-      const { clientSecret } = await createPaymentIntent(formData.totalAmount);
-      setClientSecret(clientSecret);
+      const response = await createPaymentIntent(formData.totalAmount);
+      if (response?.clientSecret) {
+        setClientSecret(response.clientSecret);
+      } else {
+        throw new Error('Failed to create payment intent');
+      }
     } catch (error) {
+      console.error('Error processing order:', error);
       toast.error('Failed to process order. Try again.');
       setLoading(false);
     }
@@ -143,7 +147,7 @@ export default function Checkout() {
         </div>
       </div>
 
-      {/* Render the Stripe Elements context */}
+      {/* Render the Stripe Elements context only if clientSecret is available */}
       {clientSecret && (
         <Elements stripe={stripePromise}>
           <div className="w-full lg:w-2/3 mx-auto mt-10">
