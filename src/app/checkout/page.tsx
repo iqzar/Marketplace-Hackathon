@@ -31,7 +31,7 @@ export default function Checkout() {
   });
   const [loading, setLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!); // Stripe instance
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY! as string); // Stripe instance
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
