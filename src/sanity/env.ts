@@ -12,7 +12,7 @@ export const projectId = assertValue(
 )
 
 export const token = assertValue(
-  process.env.SANITY_API_ID,
+  process.env.SANITY_API_TOKEN,
   'Missing environment variable: SANITY_API_TOKEN'
 )
 
