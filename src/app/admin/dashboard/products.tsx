@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import fetchProducts from '@/lib/fetchProduct';
 import AddProduct from './addProduct';
 import { urlFor } from '../../../sanity/lib/imageUrlHelper'; // Import the urlFor function
+import Image from 'next/image';
 
 interface Product {
   _id: string;
@@ -59,7 +60,7 @@ const Products: React.FC = () => {
         <td className="border p-3">{index + 1}</td> {/* Display index + 1 as the row number */}
         <td className="border p-3">
           {/* Use urlFor to get the image URL */}
-          <img
+          <Image
             src={product.image && urlFor(product.image)} // Ensure the image field is passed correctly
             alt={product.productName}
             className="w-12 h-12 object-cover mx-auto"

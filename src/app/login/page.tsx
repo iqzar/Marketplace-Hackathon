@@ -3,7 +3,7 @@ import Header from '../header';
 import Footer from '../footer';
 import Image from 'next/image';
 import logo from '../public/logo.png';
-import { SignOutButton, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 export default function Login() {
     return (

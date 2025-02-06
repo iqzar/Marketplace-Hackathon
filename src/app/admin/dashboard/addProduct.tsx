@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { client } from "../../../sanity/lib/client";
-
+import Image from 'next/image';
 // Define props interface
 interface AddProductProps {
   onClose: () => void;
@@ -160,22 +160,25 @@ const AddProduct: React.FC<AddProductProps> = ({ onClose, refreshProducts }) => 
       />
   
       {/* Image Upload */}
-      <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="p-2 border rounded-sm w-full sm:w-auto"
-          required
-        />
-        {preview && (
-          <img
-            src={preview}
-            alt="Preview"
-            className="w-14 h-14 rounded-sm object-cover mt-2 sm:mt-0"
-          />
-        )}
-      </div>
+     <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3">
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handleImageChange}
+    className="p-2 border rounded-sm w-full sm:w-auto"
+    required
+  />
+  {preview && (
+    <div className="relative w-14 h-14 mt-2 sm:mt-0">
+      <Image
+        src={preview}
+        alt="Preview"
+        layout="fill"
+        className="rounded-sm object-cover"
+      />
+    </div>
+  )}
+</div>
   
       <button
         type="submit"
