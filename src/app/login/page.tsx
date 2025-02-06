@@ -3,10 +3,11 @@ import Header from '../header';
 import Footer from '../footer';
 import Image from 'next/image';
 import logo from '../public/logo.png';
+import { SignOutButton, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 export default function Login() {
     return (
-        <main>
+        <>
             <Top />
             <Header />
             <div className="flex flex-col items-center px-4 sm:px-0 sm:w-[380px] sm:ml-auto sm:mr-auto">
@@ -18,6 +19,9 @@ export default function Login() {
                     <br />
                     NIKE
                 </h2>
+                <SignedIn>
+                    <UserButton/>
+                </SignedIn>
                 <div className="w-full mt-5">
                     <label
                         className="block text-white text-sm font-bold mb-2"
@@ -59,17 +63,17 @@ export default function Login() {
                     <br />
                     and Terms of Use.
                 </p>
-                <button
-                    type="submit"
-                    className="bg-black w-full text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5"
-                >
-                    SIGN IN
-                </button>
+                <div className="bg-black w-full text-white py-2 px-4 rounded text-center focus:outline-none focus:shadow-outline mt-5">  
+                    <SignedOut>
+                        <SignInButton mode="modal"/>
+                    </SignedOut>
+
+                </div>
                 <p className="text-[12px] text-light text-center mt-5">
                     Not a member? Join Us
                 </p>
             </div>
             <Footer />
-        </main>
+       </>
     );
 }
