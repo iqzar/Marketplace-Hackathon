@@ -53,15 +53,14 @@ export default function Cart() {
       <div className="md:flex md:space-x-8 md:ml-20 md:mr-20 ml-10 mr-10 mt-10">
         {/* Left Section: Cart Items */}
         <div className="flex-1">
-          <FreeDeliveryBanner />
-          <h2 className="text-side text-[22px] md:ml-15 ml-10 mt-5 font-semibold">Bag</h2>
+         <FreeDeliveryBanner/>
+          <h2 className="text-side text-[28px] md:ml-15 ml-10 mt-5 font-semibold">Your Cart</h2>
           <CartItems
             cartItems={cartItems}
             handleRemoveItem={handleRemoveItem}
             handleChangeQuantity={handleChangeQuantity}
           />
-          <h2 className="text-[21px] text-side font-semibold leading-tight">Favourites</h2>
-          <p className="text-[15px] text-side font-medium">There are no items saved to your favourites.</p>
+         
         </div>
 
         {/* Right Section: Summary */}
@@ -75,10 +74,10 @@ export default function Cart() {
 // Free Delivery Banner Component
 function FreeDeliveryBanner() {
   return (
-    <div className="w-full h-[62px] bg-sec pl-10 text-side flex items-center">
+    <div className="w-full h-[62px] bg-sec md:pl-10 text-side flex items-center">
       <p className="text-[13px] font-semibold">Free Delivery</p>
       <div className="flex space-x-6">
-        <p className="text-[13px]">Applies to orders of ₹ 14 000.00 or more.</p>
+        <p className="text-[13px]">Applies to orders of $50 or more.</p>
         <Link href="/" className="text-side font-semibold text-[10px] border-b-2 border-black">View Details</Link>
       </div>
     </div>
@@ -110,20 +109,20 @@ function CartItems({
               height={150}
               className="w-[150px] h-[150px]"
             />
-            <div className="text-[15px] text-side flex-1">
-              <div className="flex justify-between">
+            <div className="md:text-[16px] text-[12px] text-side flex-1">
+              <div className="flex md:space-x-20 space-x-2">
                 <h2 className="font-semibold mt-2">{item.name}</h2>
-                <h2 className="font-semibold mt-2">
+                <h2 className="font-semibold md:mt-2">
                   {formatCurrencyString({ value: price, currency: 'USD', language: 'en-US' })}
                 </h2>
               </div>
               <p className="text-pir">{item.description}</p>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 md:mt-8 mt-2">
                 <button className='font-bold' onClick={() => handleChangeQuantity(item.id, quantity - 1)}>-</button>
                 <p className=" border px-2">{quantity}</p>
                 <button className='font-bold' onClick={() => handleChangeQuantity(item.id, quantity + 1)}>+</button>
               </div>
-              <div className="flex space-x-4 mt-8">
+              <div className="flex w-12 h-12 md:w-20 md:h-20 space-x-4 md:mt-8 mt-4">
                 <Heart className='hover:text-rose-700' />
                 <Trash onClick={() => handleRemoveItem(item.id)} />
               </div>

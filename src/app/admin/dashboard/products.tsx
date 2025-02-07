@@ -7,7 +7,7 @@ import Image from 'next/image';
 interface Product {
   _id: string;
   productName: string;
-  image: any; // This should be an object containing image information from Sanity
+  image: string; // This should be an object containing image information from Sanity
   color: string;
   price: number;
   size: string;
@@ -40,9 +40,9 @@ const Products: React.FC = () => {
       </div>
 
       <div className="overflow-x-auto">
-      <table className="min-w-full border-collapse border border-gray-200 shadow-md">
+      <table className="min-w-full border-collapse border border-med shadow-md">
   <thead>
-    <tr className="bg-gray-100">
+    <tr className="bg-med">
       <th className="border p-3">No</th> {/* New Column for No */}
       <th className="border p-3">Image</th>
       <th className="border p-3">Name</th>
@@ -61,8 +61,10 @@ const Products: React.FC = () => {
         <td className="border p-3">
           {/* Use urlFor to get the image URL */}
           <Image
-            src={product.image && urlFor(product.image)} // Ensure the image field is passed correctly
+           src={product.image || "/path/to/fallback-image.jpg"} // Ensure the image field is passed correctly
             alt={product.productName}
+            width={200}
+            height={200}
             className="w-12 h-12 object-cover mx-auto"
           />
         </td>

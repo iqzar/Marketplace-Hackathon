@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Header from '../header';
 import Top from '../top';
 import Footer from '../footer';
-import { MoveRight } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation
 
@@ -106,14 +105,10 @@ export default function Checkout() {
     <main>
       <Top />
       <Header />
-      <div className="flex space-x-1">
-        <p>Cart</p>
-        <MoveRight />
-        <p>Checkout</p>
-      </div>
+     
       <div className="flex flex-col lg:flex-row lg:space-x-20 justify-between mx-20 mt-20 lg:mb-10">
         <div className="w-full lg:w-2/3">
-          <h2 className="text-side text-[21px] font-semibold mb-4">Enter your name and address:</h2>
+          <h2 className="text-side text-[21px] font-semibold mb-4">Enter your details here:</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <input
               className="w-full border-2 border-sec px-6 py-4 rounded text-[16px] text-side"
@@ -137,7 +132,7 @@ export default function Checkout() {
               onChange={handleChange}
             />
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded" disabled={loading}>
-              {loading ? 'Processing...' : 'Submit Order'}
+              {loading ? 'Processing...' : 'Process to Payment'}
             </button>
           </form>
         </div>

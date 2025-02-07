@@ -48,7 +48,23 @@ const AddProduct: React.FC<AddProductProps> = ({ onClose, refreshProducts }) => 
 
     return uploadedImage; // Returns the uploaded image object with reference
   };
-
+// handle cancel
+const handleClose = () => {
+  setProductData({
+    productName: "",
+    category: "",
+    price: "",
+    inventory: "",
+    colors: "",
+    size: "",
+    status: "",
+    description: "",
+  });
+  setImage(null);
+  setPreview(null);
+  onClose(); // Close the form
+};
+  
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,103 +108,107 @@ const AddProduct: React.FC<AddProductProps> = ({ onClose, refreshProducts }) => 
   };
 
   return (
-    <div className="max-w-[500px] w-full p-4 bg-white shadow-md rounded-lg">
-    <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">Add Product</h2>
-    <form onSubmit={handleSubmit} className="space-y-3">
+    <div className="w-full max-w-xs p-3 bg-white rounded-md shadow-md">
+  <h2 className="text-lg font-semibold mb-3 text-gray-800 text-center">Add Product</h2>
+  <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+    <input
+      type="text"
+      name="productName"
+      placeholder="Product Name"
+      onChange={handleChange}
+      required
+      className="w-full p-1.5 text-sm border rounded focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="text"
+      name="category"
+      placeholder="Category"
+      onChange={handleChange}
+      required
+      className="w-full p-1.5 text-sm border rounded focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="number"
+      name="price"
+      placeholder="Price"
+      onChange={handleChange}
+      required
+      className="w-full p-1.5 text-sm border rounded focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="number"
+      name="inventory"
+      placeholder="Inventory"
+      onChange={handleChange}
+      required
+      className="w-full p-1.5 text-sm border rounded focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="text"
+      name="colors"
+      placeholder="Colors (comma-separated)"
+      onChange={handleChange}
+      required
+      className="w-full p-1.5 text-sm border rounded focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="text"
+      name="size"
+      placeholder="Sizes (comma-separated)"
+      onChange={handleChange}
+      required
+      className="w-full p-1.5 text-sm border rounded focus:ring-2 focus:ring-blue-500"
+    />
+    <input
+      type="text"
+      name="status"
+      placeholder="Status (e.g., Available, Sold Out)"
+      onChange={handleChange}
+      required
+      className="w-full p-1.5 text-sm border rounded focus:ring-2 focus:ring-blue-500"
+    />
+    <textarea
+      name="description"
+      placeholder="Description"
+      onChange={handleChange}
+      required
+      className="w-full p-1.5 text-sm border rounded focus:ring-2 focus:ring-blue-500"
+    />
+
+    {/* Image Upload */}
+    <div className="flex flex-col items-center gap-2">
       <input
-        type="text"
-        name="productName"
-        placeholder="Product Name"
-        onChange={handleChange}
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="p-1 text-sm border rounded w-full"
         required
-        className="w-full p-2 border rounded-sm focus:ring-2 focus:ring-blue-600"
       />
-      <input
-        type="text"
-        name="category"
-        placeholder="Category"
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded-sm focus:ring-2 focus:ring-blue-600"
-      />
-      <input
-        type="number"
-        name="price"
-        placeholder="Price"
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded-sm focus:ring-2 focus:ring-blue-600"
-      />
-      <input
-        type="number"
-        name="inventory"
-        placeholder="Inventory"
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded-sm focus:ring-2 focus:ring-blue-600"
-      />
-      <input
-        type="text"
-        name="colors"
-        placeholder="Colors (comma-separated)"
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded-sm focus:ring-2 focus:ring-blue-600"
-      />
-      <input
-        type="text"
-        name="size"
-        placeholder="Sizes (comma-separated)"
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded-sm focus:ring-2 focus:ring-blue-600"
-      />
-      <input
-        type="text"
-        name="status"
-        placeholder="Status (e.g., Available, Sold Out)"
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded-sm focus:ring-2 focus:ring-blue-600"
-      />
-      <textarea
-        name="description"
-        placeholder="Description"
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded-sm focus:ring-2 focus:ring-blue-600"
-      />
-  
-      {/* Image Upload */}
-     <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3">
-  <input
-    type="file"
-    accept="image/*"
-    onChange={handleImageChange}
-    className="p-2 border rounded-sm w-full sm:w-auto"
-    required
-  />
-  {preview && (
-    <div className="relative w-14 h-14 mt-2 sm:mt-0">
-      <Image
-        src={preview}
-        alt="Preview"
-        layout="fill"
-        className="rounded-sm object-cover"
-      />
+      {preview && (
+        <div className="relative w-12 h-12">
+          <Image
+            src={preview}
+            alt="Preview"
+            layout="fill"
+            className="rounded object-cover"
+          />
+        </div>
+      )}
     </div>
-  )}
-</div>
-  
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
-      >
-        Add Product
+
+    {/* Buttons: Submit & Cancel */}
+    <div className="flex justify-between mt-2">
+      <button type="button" onClick={handleClose} className="w-[48%] bg-gray-500 text-white py-1.5 text-sm rounded hover:bg-gray-600">
+        Cancel
       </button>
-    </form>
-  </div>
-  
+      <button type="submit" className="w-[48%] bg-blue-600 text-white py-1.5 text-sm rounded hover:bg-blue-700">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+
+
 
   );
 };

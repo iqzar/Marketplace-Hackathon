@@ -8,7 +8,7 @@ import AllProducts from "./products";
 import Orders from "./order";
 import DashboardStats from "./dashboard";
 import ProtectedRoute from "./protectedRoute";
-
+import logo from '../../public/logo.png'
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const router = useRouter();
@@ -30,9 +30,9 @@ export default function AdminDashboard() {
     <ProtectedRoute>
       <div className="flex h-screen bg-gray-100">
         {/* Sidebar */}
-        <aside className="w-64 bg-white shadow-md p-6 flex flex-col">
+        <aside className="w-64 shadow-md p-6 flex flex-col bg-pir">
           <div className="flex items-center gap-2 mb-8">
-            <Image src="/logo.png" alt="Logo" width={40} height={40} />
+            <Image src={logo} alt="Logo" width={40} height={40} />
             <h1 className="text-lg font-semibold text-gray-800">Admin Panel</h1>
           </div>
 
@@ -42,7 +42,7 @@ export default function AdminDashboard() {
                 key={key}
                 onClick={() => setActiveTab(key)}
                 className={`flex items-center gap-3 text-gray-700 px-4 py-2 rounded-md transition ${
-                  activeTab === key ? "bg-blue-500 text-white" : "hover:bg-gray-200"
+                  activeTab === key ? "bg-med text-white" : "hover:bg-gray-200"
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -64,7 +64,7 @@ export default function AdminDashboard() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 bg-sec">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
             {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
           </h2>

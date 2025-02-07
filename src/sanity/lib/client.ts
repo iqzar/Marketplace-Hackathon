@@ -1,9 +1,6 @@
 import { createClient } from 'next-sanity';
 
-// Make sure your environment variables are being loaded properly
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
-const token = process.env.SANITY_API_TOKEN;
+import { projectId, dataset, token , apiVersion } from '../env';
 
 export const client = createClient({
   projectId,
