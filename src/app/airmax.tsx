@@ -2,8 +2,9 @@
 
 import Arrows from './arrows';
 import React, { useEffect, useState } from 'react';
-import fetchProducts from '@/lib/fetchProduct'; 
+import fetchProducts from '@/lib/fetchJordan'; 
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Define the structure of a product
 interface Product {
@@ -57,19 +58,21 @@ const AllProducts: React.FC = () => {
         </div>
       </div>
       
-      <div className="flex flex-row md:justify-evenly space-x-4 md:ml-0 md:pl-20 ml-10 mr-20 md:mt-0 mt-8">
+      <div className="flex md:flex-row flex-col md:justify-evenly lg:space-x-8 md:ml-10 md:pl-20  ml-10 mr-20 md:mt-0 mt-8">
         {products.slice(startIndex, startIndex + 4).map((product) => (
           <div key={product._id} className="mb-6">
+              <Link href={`/productdetail/${product._id}`}>
             <Image src={product.image} height={250} width={250} alt={product.productName} />
-            <div className="flex md:justify-between mt-5 text-[12px] text-black">
+            <div className="flex justify-between mt-5 text-[12px] text-black">
               <p className="font-semibold">{product.productName}</p>
               <p className="font-semibold">{product.price}</p>
              
             </div>
-           
+           </Link>
           </div>
-        ))}
-      </div>
+  ))}
+</div>
+      
     </main>
   );
 };

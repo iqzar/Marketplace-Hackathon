@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 interface SidebarProps {
   onCategorySelect: (category: string) => void;
@@ -6,7 +7,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ onCategorySelect }) => {
   const menuItems = [
-    {id:0, label: "All Products"},
+    
     { id: 1, label: "Men's Shoe" },
     { id: 2, label: "Women's Shoes" },
     { id: 3, label: "Tops & T-shirts" },
@@ -24,6 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCategorySelect }) => {
   return (
     <div className="w-full lg:w-64 p-4">
       <ul className="space-y-3 mt-3 text-sm border-r border-gray-300">
+        <li><Link href='/allproducts'>All Products</Link></li>
         {menuItems.map((item) => (
           <li
             key={item.id}

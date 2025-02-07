@@ -6,7 +6,6 @@ import Airmax from './airmax'
 import Sec2 from './sec2';
 import Sec3 from './sec3'
 import Gearup from './gearup'
-import Links from './links';
 import Essential from './essentials'
 import Footer from './footer'
 export default function Home(){
@@ -21,7 +20,7 @@ export default function Home(){
       <Gearup/>
       <Sec3/>
       <Essential/>
-      <Links/>
+    
       <Footer/>
     </main>
   )

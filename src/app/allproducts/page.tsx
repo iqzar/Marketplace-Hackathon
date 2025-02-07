@@ -22,10 +22,7 @@ interface Product {
   inventory: number;
   description: string;
   category: string;
-
 }
-
-
 
 const AllProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -33,8 +30,16 @@ const AllProducts: React.FC = () => {
 
   useEffect(() => {
     const loadProducts = async () => {
-      const data = await fetchProducts(); // Fetch product data
-      setProducts(data); 
+      try {
+        const data = await fetchProducts(); // Fetch product data
+        if (Array.isArray(data)) {
+          setProducts(data); 
+        } else {
+          console.error("Invalid product data:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     };
 
     loadProducts(); 
@@ -50,7 +55,6 @@ const AllProducts: React.FC = () => {
     ? products.filter((product) => product.category === selectedCategory)
     : products;
 
-   
   return (
     <main>
       <Top />
@@ -60,28 +64,31 @@ const AllProducts: React.FC = () => {
         <Sidebar onCategorySelect={handleCategorySelect} />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-10 md:ml-5 md:mr-10">
-          {filteredProducts.map((product, index) => (
-            <div key={product._id} className={`${index >= 3 && index % 3 === 0 ? '' : 'mb-8'}`}>
-              <div className="group relative overflow-hidden mr-4 md:mr-5">
-             
-                <Link href={`/productdetail/${product._id}`}>
-                  <Image
-                    src={product.image}
-                    height={448}
-                    width={448}
-                    alt={product.productName}
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </Link>
-              </div>
+          {filteredProducts.length === 0 ? (
+            <p>No products found in this category.</p> // Show a message if no products match
+          ) : (
+            filteredProducts.map((product, index) => (
+              <div key={product._id} className={`${index >= 3 && index % 3 === 0 ? '' : 'mb-8'}`}>
+                <div className="group relative overflow-hidden mr-4 md:mr-5">
+                  <Link href={`/productdetail/${product._id}`}>
+                    <Image
+                      src={product.image || "/path/to/fallback-image.jpg"} // Fallback image if URL is invalid
+                      height={448}
+                      width={448}
+                      alt={product.productName}
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </Link>
+                </div>
 
-              <p className="text-[14px] text-red mt-2 font-semibold">{product.status}</p>
-              <p className="text-[14px] mt-1 font-semibold">{product.productName}</p>
-              <p className="text-[14px] mt-1">{product.price}</p>
-              <p className="text-[14px] mt-1">{product.color}</p>
-              <p className="text-[14px] mt-2 text-side font-semibold">Category: {product.category}</p>
-            </div>
-          ))}
+                <p className="text-[14px] text-red mt-2 font-semibold">{product.status}</p>
+                <p className="text-[14px] mt-1 font-semibold">{product.productName}</p>
+                <p className="text-[14px] mt-1">{product.price}</p>
+                <p className="text-[14px] mt-1">{product.color}</p>
+                <p className="text-[14px] mt-2 text-side font-semibold">{product.category}</p>
+              </div>
+            ))
+          )}
         </div>
       </div>
       <Footer />
