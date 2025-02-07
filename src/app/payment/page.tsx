@@ -21,8 +21,8 @@ export default function PaymentPage() {
   const cartItemsStr = searchParams.get('cartItems');
   const totalAmountStr = searchParams.get('totalAmount');
 
-  const cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : [];
-  const totalAmount = totalAmountStr ? parseFloat(totalAmountStr) : 0;
+  const cartItems: { name: string; price: number }[] = cartItemsStr ? JSON.parse(cartItemsStr) : [];
+  const totalAmount: number = totalAmountStr ? parseFloat(totalAmountStr) : 0;
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -41,16 +41,17 @@ export default function PaymentPage() {
           throw new Error(errorText || 'Error creating PaymentIntent');
         }
 
-        const data = await response.json();
+        const data: { clientSecret: string } = await response.json();
         if (data.clientSecret) {
           setClientSecret(data.clientSecret);
         } else {
           throw new Error('clientSecret not found in response');
         }
-      } catch (error: any) {
+      } catch (error) {
+        const errorMsg = error instanceof Error ? error.message : 'Failed to initiate payment';
         console.error('Error creating PaymentIntent:', error);
-        setErrorMessage(error.message || 'Failed to initiate payment');
-        toast.error(error.message || 'Failed to initiate payment');
+        setErrorMessage(errorMsg);
+        toast.error(errorMsg);
       }
     };
 
@@ -83,7 +84,7 @@ export default function PaymentPage() {
 
 // Order Summary Component
 interface OrderSummaryProps {
-  cartItems: any[];
+  cartItems: { name: string; price: number }[];
   totalAmount: number;
 }
 
@@ -91,7 +92,7 @@ function OrderSummary({ cartItems, totalAmount }: OrderSummaryProps) {
   return (
     <div className="border p-4 mb-6">
       <h3 className="font-semibold text-xl mb-2">Order Summary</h3>
-      {cartItems.map((product: any, index: number) => (
+      {cartItems.map((product, index) => (
         <div key={index} className="flex justify-between">
           <p>{product.name}</p>
           <p>${(product.price / 100).toFixed(2)}</p>
@@ -114,10 +115,10 @@ function PaymentForm({ clientSecret }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
-  const [fullName, setfullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [fullName, setFullName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [paymentSuccess, setPaymentSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (paymentSuccess) {
@@ -147,11 +148,11 @@ function PaymentForm({ clientSecret }: PaymentFormProps) {
       payment_method: {
         card: cardElement,
         billing_details: {
-          name: fullName, // Pass the full name here
+          name: fullName,
           email,
         },
       }
-    } );
+    });
 
     if (error) {
       toast.error(error.message || 'Payment failed');
@@ -164,12 +165,12 @@ function PaymentForm({ clientSecret }: PaymentFormProps) {
 
   return (
     <form onSubmit={handlePayment} className="space-y-4">
-        <input
+      <input
         type="text"
         placeholder="Enter your full name"
         className="p-2 border w-full mb-4"
         value={fullName}
-        onChange={(e) => setfullName(e.target.value)} // Update the state for full name
+        onChange={(e) => setFullName(e.target.value)}
         required
       />
       <input
@@ -185,7 +186,6 @@ function PaymentForm({ clientSecret }: PaymentFormProps) {
         type="submit"
         className="bg-blue-500 text-white px-4 py-2 rounded w-full"
         disabled={loading || !stripe}
-        onClick={() => router.push('/success')}
       >
         {loading ? 'Processing...' : 'Pay Now'}
       </button>

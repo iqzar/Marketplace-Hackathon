@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import fetchProducts from '@/lib/fetchProduct';
 import AddProduct from './addProduct';
-import { urlFor } from '../../../sanity/lib/imageUrlHelper'; // Import the urlFor function
 import Image from 'next/image';
 
 interface Product {
