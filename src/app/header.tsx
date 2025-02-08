@@ -15,7 +15,7 @@ export default function Header() {
     return (
         <main>
             <div className='flex lg:space-x-32 sm:space-x-10 md:space-x-20 ml-3 pt-[10px] pb-[10px] md:ml-10 md:mr-10'>
-            <div className="flex h-[60] sm:space-x-10  lg:space-x-48">
+            <div className="flex h-[60] sm:space-x-10  lg:space-x-60">
                 <Link href={'./'}><Image src={logo} width={60} height={5} alt='logo'/></Link>
                 <ul className="md:block hidden md:mr-10 mt-1 font-semibold ">
                     <li className="text-xs space-x-3">

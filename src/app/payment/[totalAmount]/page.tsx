@@ -2,27 +2,15 @@
 
 import React, { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
-} from '@stripe/react-stripe-js';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
 // Initialize Stripe
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
-export default function PaymentPage() {
-  const searchParams = useSearchParams();
-  const cartItemsStr = searchParams.get('cartItems');
-  const totalAmountStr = searchParams.get('totalAmount');
-
-  const cartItems: { name: string; price: number }[] = cartItemsStr ? JSON.parse(cartItemsStr) : [];
-  const totalAmount: number = totalAmountStr ? parseFloat(totalAmountStr) : 0;
+export default function PaymentPage({ params }: { params: { totalAmount: string } }) {
+  const totalAmount = parseFloat(params.totalAmount) || 0;
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -75,34 +63,9 @@ export default function PaymentPage() {
     <Elements stripe={stripePromise} options={{ clientSecret }}>
       <div className="max-w-2xl mx-auto p-4">
         <h2 className="text-2xl font-semibold mb-4">Complete your Payment</h2>
-        <OrderSummary cartItems={cartItems} totalAmount={totalAmount} />
         <PaymentForm clientSecret={clientSecret} />
       </div>
     </Elements>
-  );
-}
-
-// Order Summary Component
-interface OrderSummaryProps {
-  cartItems: { name: string; price: number }[];
-  totalAmount: number;
-}
-
-function OrderSummary({ cartItems, totalAmount }: OrderSummaryProps) {
-  return (
-    <div className="border p-4 mb-6">
-      <h3 className="font-semibold text-xl mb-2">Order Summary</h3>
-      {cartItems.map((product, index) => (
-        <div key={index} className="flex justify-between">
-          <p>{product.name}</p>
-          <p>${(product.price / 100).toFixed(2)}</p>
-        </div>
-      ))}
-      <div className="flex justify-between border-t pt-2 mt-2">
-        <p className="font-bold">Total Amount</p>
-        <p className="font-bold">${(totalAmount / 100).toFixed(2)}</p>
-      </div>
-    </div>
   );
 }
 
@@ -158,7 +121,7 @@ function PaymentForm({ clientSecret }: PaymentFormProps) {
       toast.error(error.message || 'Payment failed');
     } else if (paymentIntent?.status === 'succeeded') {
       toast.success('Payment succeeded!');
-      setPaymentSuccess(true); // Trigger useEffect to redirect
+      setPaymentSuccess(true);
     }
     setLoading(false);
   };
