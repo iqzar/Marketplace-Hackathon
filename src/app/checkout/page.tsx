@@ -7,7 +7,7 @@ import Header from "../header";
 import Top from "../top";
 import Footer from "../footer";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+
 
 interface Product {
   id: string;
@@ -28,7 +28,7 @@ export default function Checkout() {
   });
 
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

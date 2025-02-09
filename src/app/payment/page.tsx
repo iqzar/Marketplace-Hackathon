@@ -42,12 +42,17 @@ export default function PaymentPage() {
       } catch (error) {
         console.error("Error creating PaymentIntent:", error);
         setErrorMessage(error instanceof Error ? error.message : 'Payment initiation failed');
-        toast.error(errorMessage);
       }
     };
 
     createPaymentIntent();
-  }, [totalAmount]);
+  }, [totalAmount]); // ✅ Removed errorMessage from dependencies
+
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage);
+    }
+  }, [errorMessage]); // ✅ Moved toast.error() to its own useEffect
 
   if (errorMessage) return <div className="text-red-500">Error: {errorMessage}</div>;
   if (!clientSecret) return <div>Loading payment details...</div>;
