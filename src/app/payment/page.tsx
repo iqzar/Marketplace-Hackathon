@@ -3,14 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
 // Initialize Stripe
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
-export default function PaymentPage({ params }: { params: { totalAmount: string } }) {
-  const totalAmount = parseFloat(params.totalAmount) || 0;
+export default function PaymentPage() {
+  const searchParams = useSearchParams();
+  const totalAmountParam = searchParams.get("totalAmount");
+  const totalAmount = totalAmountParam ? parseFloat(totalAmountParam) : 0;
+
+  console.log("Received totalAmount:", totalAmount); // ✅ Debugging log
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -18,10 +22,14 @@ export default function PaymentPage({ params }: { params: { totalAmount: string 
   useEffect(() => {
     const createPaymentIntent = async () => {
       try {
+        if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+          throw new Error('Invalid total amount provided.');
+        }
+
         const response = await fetch('/api/payment-intent', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: totalAmount }),
+          body: JSON.stringify({ amount: totalAmount * 100 }), // Convert to cents
         });
 
         if (!response.ok) {
@@ -30,34 +38,19 @@ export default function PaymentPage({ params }: { params: { totalAmount: string 
         }
 
         const data: { clientSecret: string } = await response.json();
-        if (data.clientSecret) {
-          setClientSecret(data.clientSecret);
-        } else {
-          throw new Error('clientSecret not found in response');
-        }
+        setClientSecret(data.clientSecret);
       } catch (error) {
-        const errorMsg = error instanceof Error ? error.message : 'Failed to initiate payment';
-        console.error('Error creating PaymentIntent:', error);
-        setErrorMessage(errorMsg);
-        toast.error(errorMsg);
+        console.error("Error creating PaymentIntent:", error);
+        setErrorMessage(error instanceof Error ? error.message : 'Payment initiation failed');
+        toast.error(errorMessage);
       }
     };
 
-    if (totalAmount > 0) {
-      createPaymentIntent();
-    } else {
-      setErrorMessage('Invalid total amount provided.');
-      console.error('Invalid total amount:', totalAmount);
-    }
+    createPaymentIntent();
   }, [totalAmount]);
 
-  if (errorMessage) {
-    return <div className="text-red-500">Error: {errorMessage}</div>;
-  }
-
-  if (!clientSecret) {
-    return <div>Loading payment details...</div>;
-  }
+  if (errorMessage) return <div className="text-red-500">Error: {errorMessage}</div>;
+  if (!clientSecret) return <div>Loading payment details...</div>;
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
@@ -78,14 +71,14 @@ function PaymentForm({ clientSecret }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
-  const [fullName, setFullName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const [paymentSuccess, setPaymentSuccess] = useState<boolean>(false);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   useEffect(() => {
     if (paymentSuccess) {
-      router.push(`/success`); // Redirect after payment success
+      router.push(`/success`);
     }
   }, [paymentSuccess, router]);
 
@@ -106,15 +99,11 @@ function PaymentForm({ clientSecret }: PaymentFormProps) {
       return;
     }
 
-    // Confirm the payment
     const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: cardElement,
-        billing_details: {
-          name: fullName,
-          email,
-        },
-      }
+        billing_details: { name: fullName, email },
+      },
     });
 
     if (error) {
