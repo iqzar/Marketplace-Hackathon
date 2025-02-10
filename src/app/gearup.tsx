@@ -47,7 +47,7 @@ const MenSection: React.FC = () => {
         <p className="text-[15px]">Shop Mens</p>
         <Arrows onPrev={prevProducts} onNext={nextProducts} />
       </div>
-      <div className="flex md:flex-row flex-col md:space-y-0 md:space-x-4 space-y-8 md:ml-0 ml-28 md:mt-0 mt-4">
+      <div className="flex md:flex-row flex-col md:space-y-0 space-y-8 md:ml-0 ml-20 md:mt-0 mt-4">
         {products.slice(startIndex, startIndex + 2).map((product) => (
           <div key={product._id} className="mb-6">
             <Image src={product.image} height={200} width={200} alt={product.productName} />
@@ -89,7 +89,7 @@ const WomenSection: React.FC = () => {
         <p className="text-[15px]">Shop Womens</p>
         <Arrows onPrev={prevProducts} onNext={nextProducts} />
       </div>
-      <div className="flex md:flex-row flex-col md:space-y-0 md:space-x-4 space-y-8 ml-28 md:mt-0 mt-4">
+      <div className="flex md:flex-row flex-col md:space-y-0 md:space-x-4 space-y-8 ml-20 md:mt-0 mt-4">
         {products.slice(startIndex, startIndex + 2).map((product) => (
           <div key={product._id}>
               <Link href={`/productdetail/${product._id}`}>

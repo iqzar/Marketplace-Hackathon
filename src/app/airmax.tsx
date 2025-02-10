@@ -58,9 +58,9 @@ const AllProducts: React.FC = () => {
         </div>
       </div>
       
-      <div className="flex md:flex-row flex-col lg:space-x-8 ml-20  md:pl-20  lg:ml-10  mr-20 md:mt-0 mt-8">
+      <div className="flex md:flex-row flex-col lg:space-x-8   md:pl-20  lg:ml-10  mr-20 md:mt-0 mt-8">
         {products.slice(startIndex, startIndex + 4).map((product) => (
-          <div key={product._id} className="mb-6">
+          <div key={product._id} className="mb-6 ml-20">
               <Link href={`/productdetail/${product._id}`}>
             <Image src={product.image} height={250} width={250} alt={product.productName} />
             <div className="flex justify-between mt-5 text-[12px] text-black">
