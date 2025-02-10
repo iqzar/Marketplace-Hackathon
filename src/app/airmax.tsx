@@ -58,7 +58,7 @@ const AllProducts: React.FC = () => {
         </div>
       </div>
       
-      <div className="flex md:flex-row flex-col md:justify-evenly lg:space-x-8 md:ml-10 md:pl-20  ml-10 mr-20 md:mt-0 mt-8">
+      <div className="flex md:flex-row flex-col lg:space-x-8 ml-20  md:pl-20  lg:ml-10  mr-20 md:mt-0 mt-8">
         {products.slice(startIndex, startIndex + 4).map((product) => (
           <div key={product._id} className="mb-6">
               <Link href={`/productdetail/${product._id}`}>
